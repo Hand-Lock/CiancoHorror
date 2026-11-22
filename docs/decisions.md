@@ -24,3 +24,6 @@ Newest last. One line of context, the decision, and why. Mod-level "why" lives i
 - **`white-list=true` + `enforce-whitelist=true` are managed keys.** *Why:* offline-mode + public address means anyone could join under any name.
 - **Server secrets are redacted** (`/secret|password|token|keystore/` keys) in all `ch` output.
 - **`enforce-whitelist` dropped from managed keys**: Exaroton resets it on start. `white-list` was turned on via console `whitelist on` (persists). Two whitelist entries were rewritten with offline UUIDs (they had premium UUIDs and would have been locked out).
+
+## 2026-11-22 — Client migration
+- **The dev Prism instance is synced by `ch client:sync`, without the packwiz-installer PreLaunchCommand** (the original plan had one). *Why:* a pre-launch update from the `release` branch would undo the working-tree changes being tested. Friends' instances (the onboarding zip) do self-update from `release`.

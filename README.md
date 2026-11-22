@@ -34,3 +34,8 @@ The repo is the source of truth (packwiz format). Everything else is derived fro
 
 Requirements: Node ≥ 20, Java 25, git, [packwiz](https://github.com/packwiz/packwiz) (`go install github.com/packwiz/packwiz@latest`), and `gh` for releases.
 See `CLAUDE.md` for the layout, rules and gotchas, `docs/catalog.json` for why each mod is here, and `docs/decisions.md` for the decision log.
+
+### The dev instance
+The maintainer's Prism instance (`CiancoHorror`) is **not** self-updating. `./ch client:sync` installs the working tree into it, so changes can be tested before release.
+It was migrated from the Modrinth "Optimization" pack on 2026-11-22: `ManagedPack=false` (Prism's "Update" button would otherwise replace the whole pack). The original instance is kept as `CiancoHorror (backup 2026-11-22)`.
+To play exactly what friends get, import `CiancoHorror-Prism.zip` from a release as a separate instance.
