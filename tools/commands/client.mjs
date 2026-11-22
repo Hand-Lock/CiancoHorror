@@ -11,14 +11,18 @@ export const help = [
 ];
 
 function gameRunning() {
-  try { return sh('pgrep', ['-f', `instances/${path.basename(P.instance)}/minecraft`]).trim().length > 0; } catch { return false; }
+  // only java processes count — a plain `pgrep -f <path>` also matches shells whose command line mentions the path
+  let pids;
+  try { pids = sh('pgrep', ['java']).trim().split('\n').filter(Boolean); } catch { return false; }
+  const needle = `instances/${path.basename(P.instance)}/`;
+  return pids.some((pid) => { try { return sh('ps', ['-p', pid, '-o', 'args=']).includes(needle); } catch { return false; } });
 }
 
 async function sync() {
   if (!fs.existsSync(P.mc)) die(`instance not found: ${P.mc}`);
   if (gameRunning()) die('Minecraft is running from this instance — close it first');
   const cfg = fs.readFileSync(path.join(P.instance, 'instance.cfg'), 'utf8');
-  if (/^ManagedPack=true/m.test(cfg)) log.warn('instance is still flagged ManagedPack=true (Prism "Update" would replace the pack) — see README migration');
+  if (/^ManagedPack=true/m.test(cfg)) log.warn('instance is still flagged ManagedPack=true (Prism "Update" would replace the pack) — set ManagedPack=false in instance.cfg (see README "The dev instance")');
   refresh();
   const srv = await servePack();
   try { await installPack(srv.url, P.mc, 'client'); } finally { srv.stop(); }
