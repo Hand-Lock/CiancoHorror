@@ -54,7 +54,7 @@ hash = "5f08d0878d7f89c6b4c947a49dce368d7738255d44fecf9aad59ec6ae8a4fcef"
 
 [[files]]
 file = "config/distantfriends-common.toml"
-hash = "47ebcada616993ea2502823274f967ff1b09d511240d84227bbc1281b8cb039a"
+hash = "8ec2c69b57b6a18b2611a6d116a2d0991eab42f82de91f68487f3928aee2134a"
 
 [[files]]
 file = "config/enhancedcelestials2core/fabric_mixins.properties"
@@ -94,7 +94,7 @@ hash = "8670eb55b1b88047cde7560ac29b38019a244055ade6e1411b080b66e5292d69"
 
 [[files]]
 file = "config/face_of_horror-server.toml"
-hash = "8670eb55b1b88047cde7560ac29b38019a244055ade6e1411b080b66e5292d69"
+hash = "4ec0959fabbfb30eeeb6b2a06b0fec576266aaefd51f4350fb52f3bf96c2418c"
 
 [[files]]
 file = "config/fastquit.toml"
@@ -114,11 +114,11 @@ hash = "0ae47b949efbe08c3d98dcb3398edee7dc500e9c68afdf53afd4d964754981e2"
 
 [[files]]
 file = "config/hardcorerevival-common.toml"
-hash = "69b48c0a4a339e953dac325e44007b10087027f2bb3bfbac59f9b2956c1cc553"
+hash = "cacd775f2706a510db2b93a0bf54b8a5b9432733244f0425e6333bd64c06dc96"
 
 [[files]]
 file = "config/hollow-reborn.json"
-hash = "c9036ecec526930d6a0b47ef785bb5284b18598e8f4e45073590f9d307a15b5c"
+hash = "f0899f4b1de00aaaf48579dd08a81d4b3c5411d8d6b78b5520fa6dfb0edd7e94"
 
 [[files]]
 file = "config/immediatelyfast.json"
@@ -200,7 +200,7 @@ hash = "f41ad25ed0e7d6959ca361b5b837140f8ab178c39b65e6d32cd9359c1d663c5f"
 
 [[files]]
 file = "config/serilum/giantspawn.json"
-hash = "db636dc7a767e6105e416b7b05a77a67c274a9ea6084494e287b5e411d7b67a2"
+hash = "769260a9bf0c3915a506cbc9bde099c57147a47302159f41561f84a489d33850"
 
 [[files]]
 file = "config/serilum/oreharvester.json"
@@ -212,7 +212,7 @@ hash = "4e2f107c82525ff20826afb1a835b1a88c8ed2fbeacaf5b6665cf03976cb9cc1"
 
 [[files]]
 file = "config/serversidehorror.json"
-hash = "1508a9ab6ed6f397ce2adf1eb8a6a3bd749042edf96f8eeab684deb3d338faee"
+hash = "47682523d6d356c7df2559e46afbc3d8dccce7b2267855420e2d9db4a99812f4"
 
 [[files]]
 file = "config/sihywtcamd/arthropods.json"
@@ -293,11 +293,16 @@ hash = "b428c07faaed97d3bee29aa748bb8a1773f5145008435c08d9b5aed5151da3ad"
 
 [[files]]
 file = "config/voicechat/voicechat-server.properties"
-hash = "fa032150f03b5d5848776f70b8bebde80c06d612ba915f26f03cf20c479950cd"
+hash = "1539253f68bca47a654cabbe77a06ec14a1d68b2d3a873f13da580e272ba9301"
 
 [[files]]
 file = "config/yacl.json5"
 hash = "121b93764159be6fb7dab523b29a844e2bb78400ce8c48f52135a097e9b0006e"
+
+[[files]]
+file = "mods/alternate-current.pw.toml"
+hash = "cff419ef8a571a0cd2296548c18eb369059a4f814ff2e554ef01f3b9d96e7c7c"
+metafile = true
 
 [[files]]
 file = "mods/ambientsounds.pw.toml"
@@ -325,6 +330,11 @@ hash = "6b879419188c131ba7ce19dfa0727894f777788ae869b0c4b78545f39ce9f6dd"
 metafile = true
 
 [[files]]
+file = "mods/chunky.pw.toml"
+hash = "a6aa82c29219f6c8df2d668b5a7de01b1cb772ee80f91261eae36db0a9af313f"
+metafile = true
+
+[[files]]
 file = "mods/cloth-config.pw.toml"
 hash = "6df517dcf6486d38441dd005c656a031bf46acc25a6bfb172a3791ba5d371e6a"
 metafile = true
@@ -336,12 +346,12 @@ metafile = true
 
 [[files]]
 file = "mods/coolrain.pw.toml"
-hash = "5bd8ed420fe3fa8212537d90be0fcc62f12fb5e630f090a5b2417510ca44e806"
+hash = "08f64912dd07a42b80405be1117c491c548bad4ffbea187001fa1d806e9d0b53"
 metafile = true
 
 [[files]]
 file = "mods/creativecore.pw.toml"
-hash = "d5b5fe0ddc001c4741dfe849c40e4c1abb5a525701ae97483612312df3eacf1f"
+hash = "5412b4e1aede5eb289a02526e2eb0ba3c0e393b7f45a9f6b8cf60b3a5382ed8f"
 metafile = true
 
 [[files]]
@@ -376,7 +386,7 @@ metafile = true
 
 [[files]]
 file = "mods/enhancedvisuals.pw.toml"
-hash = "a70e79094a218179e8d1abb5ecde508bbae4b2667d54cc01d4a2e5272713819c"
+hash = "2eb573c51a1b51ea320f31b2487b2b92eb1f1ab681abe22e4d70d2351bec50e5"
 metafile = true
 
 [[files]]
@@ -481,7 +491,7 @@ metafile = true
 
 [[files]]
 file = "mods/modernfix-mvus.pw.toml"
-hash = "c060172adc4e9f4f01234794ea82e3fa7b9d2363791334012fa80e2dc0c119da"
+hash = "7651845154aab7af1826b1827ae712aea213e54a7d66fa7c09ff48080c35a8d6"
 metafile = true
 
 [[files]]
@@ -526,7 +536,7 @@ metafile = true
 
 [[files]]
 file = "mods/placeholder-api.pw.toml"
-hash = "98398b0bbea7d71ea0ceed133f1380d48e2295c2b01ecf191833b3cac153769d"
+hash = "dd82937676ebda3cd8899fbfb32571b5d020c02d2b3e13a8a6b5f22ce12de457"
 metafile = true
 
 [[files]]
@@ -546,12 +556,22 @@ metafile = true
 
 [[files]]
 file = "mods/quick-pack.pw.toml"
-hash = "505b56035e81bcc269c97fb29baffb91426d2cd976a1ea91a207e8bc236f0d1b"
+hash = "36d1f03bb4810fd934089f3ee0154baab32a7467d61009eedbe346e942b64299"
+metafile = true
+
+[[files]]
+file = "mods/scalablelux.pw.toml"
+hash = "20d3db76a0b903b6009d4b6143b55aef2d7484ff97ab424621158bcd51d8363d"
 metafile = true
 
 [[files]]
 file = "mods/server-side-horror.pw.toml"
 hash = "77fba0eca6663b343ab2f70c5ec2d94969e56c59e73b8f3d344975eea2f42a9c"
+metafile = true
+
+[[files]]
+file = "mods/servercore.pw.toml"
+hash = "15a6393dc50f01313e735720471b629e8daebbc27ade1ffc3f1ba55a8f572c92"
 metafile = true
 
 [[files]]
@@ -565,6 +585,11 @@ hash = "c8cd246fa35cb7aedc46f279500561cf291b3b6544a03ef0dcc372f7745cf178"
 metafile = true
 
 [[files]]
+file = "mods/skinrestorer.pw.toml"
+hash = "0c7daded52ce9a69ee0d1da40a92f962bf851e8d3cb286e46eefb3b704da7345"
+metafile = true
+
+[[files]]
 file = "mods/sodium.pw.toml"
 hash = "06591751af5905e7927b7e218199ee9086815ee79ef68aa9b4592345eb530e1b"
 metafile = true
@@ -572,6 +597,11 @@ metafile = true
 [[files]]
 file = "mods/sound-physics-perfected.pw.toml"
 hash = "1f8057ceb336a8eb88135ea89fea7ff583ffd97eea8f87dbb4c8951e58c3b2f0"
+metafile = true
+
+[[files]]
+file = "mods/spark.pw.toml"
+hash = "daa99a7ba08f8f6d6484ce08fe9332e87d07dc2b74fb0207cf879541ff7ff280"
 metafile = true
 
 [[files]]
@@ -590,8 +620,18 @@ hash = "dbbc247d3c670b0915b4ea4f5fbd144d8b31de6ab050301cae906ab98486ea47"
 metafile = true
 
 [[files]]
+file = "mods/tt20.pw.toml"
+hash = "0779ea6487154e49f180f5f5e51fe8feb99abcba2db9182edc28bea04a7d18f9"
+metafile = true
+
+[[files]]
 file = "mods/vidalia.pw.toml"
 hash = "dae8c6edcbb5537c6413535fc4fd8b5fe0857a428d88551f1c41cd1f527c2813"
+metafile = true
+
+[[files]]
+file = "mods/vmp-fabric.pw.toml"
+hash = "39dd633fe6e068719c5ddf0c6f45ea0821748e19f9bbd6775c713cbc81dc10cd"
 metafile = true
 
 [[files]]
@@ -601,7 +641,7 @@ metafile = true
 
 [[files]]
 file = "mods/yacl.pw.toml"
-hash = "cc2fd55ddbeccb71d7b0841f43a3aac882c16ac85e72d6bf9bfb45d5d775c519"
+hash = "883d4359f7efc955d1e9ce4674de86d95d0bbfc9394b9d801d9fdb2e77c2f05e"
 metafile = true
 
 [[files]]

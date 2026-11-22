@@ -1,6 +1,6 @@
 name = "EnhancedVisuals"
 filename = "EnhancedVisuals_FABRIC_v1.8.35_mc26.3.jar"
-side = "both"
+side = "client"
 
 [download]
 url = "https://cdn.modrinth.com/data/KjL0jE2w/versions/qaccmSuj/EnhancedVisuals_FABRIC_v1.8.35_mc26.3.jar"

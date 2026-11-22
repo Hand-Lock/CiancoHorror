@@ -1,6 +1,6 @@
 name = "ModernFix-mVUS"
 filename = "modernfix-5.27.20-build.2.jar"
-side = "both"
+side = "client"
 
 [download]
 url = "https://cdn.modrinth.com/data/TjSm1wrD/versions/pa9cAfYg/modernfix-5.27.20-build.2.jar"

@@ -1,7 +1,7 @@
 {
   "$comment": "One entry per pack metafile (slug = pack/<dir>/<slug>.pw.toml). `ch doctor` enforces coverage. base=true → comes from the Optimization base (managed by `ch base:sync`). requiredBy lists dependents for libraries.",
   "categories": {
-    "base-perf": "Performance mods inherited from the Optimization base pack",
+    "base-perf": "Performance mods inherited from the base packs (Optimization for clients, Server Optimization for the server)",
     "horror": "Horror content: stalkers, events, darkness, scarier mobs",
     "sound": "Ambient sound, footsteps, sound physics",
     "golden-days-visuals": "Old-school look: Golden Days RP and the mods it needs (EMF/ETF/ESF/Polytone/Vidalia/Timeless)",
@@ -10,73 +10,482 @@
     "library": "Libraries/APIs required by other mods"
   },
   "mods": {
-    "fabric-api": { "category": "library", "base": true, "purpose": "Core Fabric hooks", "why": "Required by nearly every mod", "requiredBy": ["*"] },
-    "sodium": { "category": "base-perf", "base": true, "purpose": "Rendering engine replacement", "why": "Biggest client FPS win; base pack" },
-    "lithium": { "category": "base-perf", "base": true, "purpose": "Game-logic optimisation (tick, AI, collisions)", "why": "Server + singleplayer TPS; base pack" },
-    "c2me-fabric": { "category": "base-perf", "base": true, "purpose": "Parallel chunk generation/IO", "why": "Chunk performance on the 3-vCPU server; base pack" },
-    "ferrite-core": { "category": "base-perf", "base": true, "purpose": "Memory usage reduction", "why": "Base pack; helps the 6 GB server" },
-    "modernfix-mvus": { "category": "base-perf", "base": true, "purpose": "Launch time / memory fixes (MVUS fork)", "why": "Base pack" },
-    "immediatelyfast": { "category": "base-perf", "base": true, "purpose": "Immediate-mode rendering speedups (HUD, text, maps)", "why": "Base pack" },
-    "entityculling": { "category": "base-perf", "base": true, "purpose": "Skip rendering hidden entities/block entities", "why": "Base pack" },
-    "moreculling": { "category": "base-perf", "base": true, "purpose": "Extra culling (leaves, item frames, signs)", "why": "Base pack" },
-    "obe": { "category": "base-perf", "base": true, "purpose": "Faster block-entity rendering", "why": "Base pack" },
-    "asyncparticles": { "category": "base-perf", "base": true, "purpose": "Async particle ticking + GPU particle rendering", "why": "Base pack; horror mods spawn lots of particles" },
-    "gnetum": { "category": "base-perf", "base": true, "purpose": "Spread HUD updates over frames", "why": "Base pack" },
-    "ixeris": { "category": "base-perf", "base": true, "purpose": "Buffered raw input, threaded event polling", "why": "Base pack; input latency on macOS" },
-    "quick-pack": { "category": "base-perf", "base": true, "purpose": "Faster resource/data pack zip loading", "why": "Base pack; Golden Days is a 5.6 MB zip" },
-    "fastquit": { "category": "base-perf", "base": true, "purpose": "Return to title while the world saves", "why": "Base pack" },
-    "cloth-config": { "category": "library", "base": true, "purpose": "Config screen library", "why": "Base pack", "requiredBy": ["fastquit", "inventory-sorting", "moreculling", "murk"] },
-
-    "face-of-horror": { "category": "horror", "purpose": "Faces watching from the shadows; jumpscares, custom faces/sounds", "why": "Core horror atmosphere" },
-    "from-the-fog": { "category": "horror", "purpose": "Herobrine legend events (stalking, structures, fog)", "why": "Core horror content" },
-    "hollowsteve": { "category": "horror", "purpose": "Hollow Steve stalker boss that must be killed 10 times", "why": "Long-term horror goal/boss" },
-    "server-side-horror": { "category": "horror", "purpose": "Configurable ambient horror events (sounds, fake players, door slams)", "why": "Server-driven scares that work for everyone" },
-    "murk": { "category": "horror", "purpose": "Punishes lingering in total darkness", "why": "Makes light management matter" },
-    "distant-friends": { "category": "horror", "purpose": "Player-like mobs watching from afar", "why": "Paranoia / 'is that a friend?' moments" },
-    "enhanced-celestials-2-default-lunar-events": { "category": "horror", "purpose": "Blood moons, harvest moons, etc.", "why": "Periodic danger spikes at night" },
-    "enhanced-celestials-2-core": { "category": "library", "purpose": "Lunar event scheduling engine", "why": "Required by Default Lunar Events", "requiredBy": ["enhanced-celestials-2-default-lunar-events"] },
-    "mutant-monsters": { "category": "horror", "purpose": "Mutant zombie/skeleton/creeper/enderman bosses", "why": "Harder, scarier mobs" },
-    "difficulty": { "category": "horror", "purpose": "SIHYWTCAMD — hostile mob AI/ability overhaul", "why": "Makes vanilla mobs a real threat (server-only logic, side=both for SP parity)" },
-    "giant-spawn": { "category": "horror", "purpose": "Natural giant spawns with zombie AI", "why": "Rare terrifying encounter (server-only logic, side=both for SP parity)" },
-    "spooky-doors": { "category": "horror", "purpose": "Horror-game style creaky doors", "why": "Atmosphere" },
-    "enhancedvisuals": { "category": "horror", "purpose": "Screen effects for damage, low health, fear", "why": "Visceral feedback" },
-
-    "ambientsounds": { "category": "sound", "purpose": "Biome/time-based ambient soundscapes", "why": "Atmosphere" },
-    "coolrain": { "category": "sound", "purpose": "Rain sounds on blocks", "why": "Atmosphere" },
-    "presence-footsteps": { "category": "sound", "purpose": "Material-aware footstep sounds for players/mobs", "why": "Hearing things approach is key to horror" },
-    "sound-physics-perfected": { "category": "sound", "purpose": "Ray-traced reverb/occlusion", "why": "Spatial audio for scares. Under review: suspected cause of voicechat buffer warnings; candidate swap to Sound Physics Remastered" },
-
-    "simple-voice-chat": { "category": "voice", "purpose": "Proximity voice chat", "why": "Core multiplayer experience" },
-    "simple-voice-animations": { "category": "voice", "purpose": "Head animations while talking", "why": "Immersion" },
-    "voice-chat-interaction": { "category": "voice", "purpose": "Voice triggers sculk sensors/warden", "why": "Being loud is dangerous (server-only logic, side=both for SP parity)" },
-
-    "golden-days": { "category": "golden-days-visuals", "purpose": "Golden Days Base resource pack (Beta-era look)", "why": "The pack's visual identity; needs Programmer Art enabled (set in options.txt)" },
-    "entity-model-features": { "category": "golden-days-visuals", "purpose": "OptiFine-format custom entity models", "why": "Golden Days old models" },
-    "entitytexturefeatures": { "category": "golden-days-visuals", "purpose": "OptiFine-format emissive/random entity textures", "why": "Golden Days textures", "requiredBy": ["entity-model-features", "esf"] },
-    "esf": { "category": "golden-days-visuals", "purpose": "OptiFine-format entity sound variation", "why": "Golden Days old sounds. Build is tagged 26.1 — works, watch for a 26.3 build" },
-    "polytone": { "category": "golden-days-visuals", "purpose": "Colormaps, block colours, biome colours from resource packs", "why": "Golden Days colour/lighting" },
-    "vidalia": { "category": "golden-days-visuals", "purpose": "1.7/1.8-era visuals and animations (jar: animatium)", "why": "Old-school feel" },
-    "timeless": { "category": "golden-days-visuals", "purpose": "Brings back old/removed features", "why": "Old-school feel" },
-    "anti-smooth": { "category": "golden-days-visuals", "purpose": "Snappier entity movement interpolation", "why": "Old-school feel" },
-
-    "hardcore-revival": { "category": "gameplay-qol", "purpose": "Downed state; friends can revive you", "why": "Co-op tension instead of instant death" },
-    "lootr": { "category": "gameplay-qol", "purpose": "Per-player loot chests", "why": "Fair loot in multiplayer" },
-    "inventory-sorting": { "category": "gameplay-qol", "purpose": "Inventory/chest sorting", "why": "QoL" },
-    "peek": { "category": "gameplay-qol", "purpose": "Extra item/block info tooltips", "why": "QoL" },
-    "ore-harvester": { "category": "gameplay-qol", "purpose": "Vein-mine whole ore veins", "why": "Less grind (server-only, zero client cost)" },
-    "tree-harvester": { "category": "gameplay-qol", "purpose": "Fell whole trees with an axe", "why": "Less grind (server-only, zero client cost); replaced TreeChop" },
-    "no-chat-reports": { "category": "gameplay-qol", "purpose": "Strip chat signing", "why": "Privacy" },
-    "modmenu": { "category": "gameplay-qol", "purpose": "Mod list + config screens", "why": "Access configs in-game" },
-
-    "balm": { "category": "library", "purpose": "Multi-loader abstraction", "why": "Library", "requiredBy": ["hardcore-revival", "spooky-doors"] },
-    "collective": { "category": "library", "purpose": "Serilum shared library", "why": "Library", "requiredBy": ["giant-spawn", "ore-harvester", "tree-harvester"] },
-    "creativecore": { "category": "library", "purpose": "CreativeMD core library", "why": "Library", "requiredBy": ["ambientsounds", "enhancedvisuals"] },
-    "data-anchor": { "category": "library", "purpose": "Data attachment/networking library", "why": "Library", "requiredBy": ["enhanced-celestials-2-core", "enhanced-celestials-2-default-lunar-events"] },
-    "deimos": { "category": "library", "purpose": "Config/datagen library", "why": "Library", "requiredBy": ["server-side-horror"] },
-    "forge-config-api-port": { "category": "library", "purpose": "Forge/NeoForge config API on Fabric", "why": "Library", "requiredBy": ["distant-friends", "mutant-monsters", "puzzles-lib"] },
-    "geckolib": { "category": "library", "purpose": "Entity animation library", "why": "Library", "requiredBy": ["hollowsteve"] },
-    "puzzles-lib": { "category": "library", "purpose": "Fuzs shared library", "why": "Library", "requiredBy": ["mutant-monsters"] },
-    "placeholder-api": { "category": "library", "purpose": "Text placeholder library", "why": "Library", "requiredBy": ["modmenu"] },
-    "yacl": { "category": "library", "purpose": "YetAnotherConfigLib", "why": "Library", "requiredBy": ["sound-physics-perfected", "vidalia"] }
+    "alternate-current": {
+      "category": "base-perf",
+      "purpose": "Faster, non-locational redstone dust (server).",
+      "why": "Ships with Server Optimization; redstone updates are a classic tick-time sink.",
+      "base": [
+        "server"
+      ]
+    },
+    "ambientsounds": {
+      "category": "sound",
+      "purpose": "Biome/time-based ambient soundscapes",
+      "why": "Atmosphere"
+    },
+    "anti-smooth": {
+      "category": "golden-days-visuals",
+      "purpose": "Snappier entity movement interpolation",
+      "why": "Old-school feel"
+    },
+    "asyncparticles": {
+      "category": "base-perf",
+      "base": [
+        "client"
+      ],
+      "purpose": "Async particle ticking + GPU particle rendering",
+      "why": "Base pack; horror mods spawn lots of particles"
+    },
+    "balm": {
+      "category": "library",
+      "purpose": "Multi-loader abstraction",
+      "why": "Library",
+      "requiredBy": [
+        "hardcore-revival",
+        "spooky-doors"
+      ]
+    },
+    "c2me-fabric": {
+      "category": "base-perf",
+      "base": [
+        "client",
+        "server"
+      ],
+      "purpose": "Parallel chunk generation/IO",
+      "why": "Chunk performance on the 3-vCPU server; base pack"
+    },
+    "chunky": {
+      "category": "base-perf",
+      "purpose": "World pre-generation (/chunky).",
+      "why": "Ships with Server Optimization. Pregen the world so 3 vCPUs never generate chunks during play.",
+      "base": [
+        "server"
+      ]
+    },
+    "cloth-config": {
+      "category": "library",
+      "base": [
+        "client"
+      ],
+      "purpose": "Config screen library",
+      "why": "Base pack",
+      "requiredBy": [
+        "fastquit",
+        "inventory-sorting",
+        "moreculling",
+        "murk"
+      ]
+    },
+    "collective": {
+      "category": "library",
+      "purpose": "Serilum shared library",
+      "why": "Library",
+      "requiredBy": [
+        "giant-spawn",
+        "ore-harvester",
+        "tree-harvester"
+      ]
+    },
+    "coolrain": {
+      "category": "sound",
+      "purpose": "Rain sounds on blocks",
+      "why": "Atmosphere"
+    },
+    "creativecore": {
+      "category": "library",
+      "purpose": "CreativeMD core library",
+      "why": "Library",
+      "requiredBy": [
+        "ambientsounds",
+        "enhancedvisuals"
+      ]
+    },
+    "data-anchor": {
+      "category": "library",
+      "purpose": "Data attachment/networking library",
+      "why": "Library",
+      "requiredBy": [
+        "enhanced-celestials-2-core",
+        "enhanced-celestials-2-default-lunar-events"
+      ]
+    },
+    "deimos": {
+      "category": "library",
+      "purpose": "Config/datagen library",
+      "why": "Library",
+      "requiredBy": [
+        "server-side-horror"
+      ]
+    },
+    "difficulty": {
+      "category": "horror",
+      "purpose": "SIHYWTCAMD — hostile mob AI/ability overhaul",
+      "why": "Makes vanilla mobs a real threat (server-only logic, side=both for SP parity)"
+    },
+    "distant-friends": {
+      "category": "horror",
+      "purpose": "Player-like mobs watching from afar",
+      "why": "Paranoia / 'is that a friend?' moments"
+    },
+    "enhanced-celestials-2-core": {
+      "category": "library",
+      "purpose": "Lunar event scheduling engine",
+      "why": "Required by Default Lunar Events",
+      "requiredBy": [
+        "enhanced-celestials-2-default-lunar-events"
+      ]
+    },
+    "enhanced-celestials-2-default-lunar-events": {
+      "category": "horror",
+      "purpose": "Blood moons, harvest moons, etc.",
+      "why": "Periodic danger spikes at night"
+    },
+    "enhancedvisuals": {
+      "category": "horror",
+      "purpose": "Screen effects for damage, low health, fear",
+      "why": "Visceral feedback"
+    },
+    "entity-model-features": {
+      "category": "golden-days-visuals",
+      "purpose": "OptiFine-format custom entity models",
+      "why": "Golden Days old models"
+    },
+    "entityculling": {
+      "category": "base-perf",
+      "base": [
+        "client"
+      ],
+      "purpose": "Skip rendering hidden entities/block entities",
+      "why": "Base pack"
+    },
+    "entitytexturefeatures": {
+      "category": "golden-days-visuals",
+      "purpose": "OptiFine-format emissive/random entity textures",
+      "why": "Golden Days textures",
+      "requiredBy": [
+        "entity-model-features",
+        "esf"
+      ]
+    },
+    "esf": {
+      "category": "golden-days-visuals",
+      "purpose": "OptiFine-format entity sound variation",
+      "why": "Golden Days old sounds. Build is tagged 26.1 — works, watch for a 26.3 build"
+    },
+    "fabric-api": {
+      "category": "library",
+      "base": [
+        "client",
+        "server"
+      ],
+      "purpose": "Core Fabric hooks",
+      "why": "Required by nearly every mod",
+      "requiredBy": [
+        "*"
+      ]
+    },
+    "face-of-horror": {
+      "category": "horror",
+      "purpose": "Faces watching from the shadows; jumpscares, custom faces/sounds",
+      "why": "Core horror atmosphere"
+    },
+    "fastquit": {
+      "category": "base-perf",
+      "base": [
+        "client"
+      ],
+      "purpose": "Return to title while the world saves",
+      "why": "Base pack"
+    },
+    "ferrite-core": {
+      "category": "base-perf",
+      "base": [
+        "client",
+        "server"
+      ],
+      "purpose": "Memory usage reduction",
+      "why": "Base pack; helps the 6 GB server"
+    },
+    "forge-config-api-port": {
+      "category": "library",
+      "purpose": "Forge/NeoForge config API on Fabric",
+      "why": "Library",
+      "requiredBy": [
+        "distant-friends",
+        "mutant-monsters",
+        "puzzles-lib"
+      ]
+    },
+    "from-the-fog": {
+      "category": "horror",
+      "purpose": "Herobrine legend events (stalking, structures, fog)",
+      "why": "Core horror content"
+    },
+    "geckolib": {
+      "category": "library",
+      "purpose": "Entity animation library",
+      "why": "Library",
+      "requiredBy": [
+        "hollowsteve"
+      ]
+    },
+    "giant-spawn": {
+      "category": "horror",
+      "purpose": "Natural giant spawns with zombie AI",
+      "why": "Rare terrifying encounter (server-only logic, side=both for SP parity)"
+    },
+    "gnetum": {
+      "category": "base-perf",
+      "base": [
+        "client"
+      ],
+      "purpose": "Spread HUD updates over frames",
+      "why": "Base pack"
+    },
+    "golden-days": {
+      "category": "golden-days-visuals",
+      "purpose": "Golden Days Base resource pack (Beta-era look)",
+      "why": "The pack's visual identity; needs Programmer Art enabled (set in options.txt)"
+    },
+    "hardcore-revival": {
+      "category": "gameplay-qol",
+      "purpose": "Downed state; friends can revive you",
+      "why": "Co-op tension instead of instant death"
+    },
+    "hollowsteve": {
+      "category": "horror",
+      "purpose": "Hollow Steve stalker boss that must be killed 10 times",
+      "why": "Long-term horror goal/boss"
+    },
+    "immediatelyfast": {
+      "category": "base-perf",
+      "base": [
+        "client"
+      ],
+      "purpose": "Immediate-mode rendering speedups (HUD, text, maps)",
+      "why": "Base pack"
+    },
+    "inventory-sorting": {
+      "category": "gameplay-qol",
+      "purpose": "Inventory/chest sorting",
+      "why": "QoL"
+    },
+    "ixeris": {
+      "category": "base-perf",
+      "base": [
+        "client"
+      ],
+      "purpose": "Buffered raw input, threaded event polling",
+      "why": "Base pack; input latency on macOS"
+    },
+    "lithium": {
+      "category": "base-perf",
+      "base": [
+        "client",
+        "server"
+      ],
+      "purpose": "Game-logic optimisation (tick, AI, collisions)",
+      "why": "Server + singleplayer TPS; base pack"
+    },
+    "lootr": {
+      "category": "gameplay-qol",
+      "purpose": "Per-player loot chests",
+      "why": "Fair loot in multiplayer"
+    },
+    "modernfix-mvus": {
+      "category": "base-perf",
+      "base": [
+        "client"
+      ],
+      "purpose": "Launch time / memory fixes (MVUS fork)",
+      "why": "Base pack"
+    },
+    "modmenu": {
+      "category": "gameplay-qol",
+      "purpose": "Mod list + config screens",
+      "why": "Access configs in-game"
+    },
+    "moreculling": {
+      "category": "base-perf",
+      "base": [
+        "client"
+      ],
+      "purpose": "Extra culling (leaves, item frames, signs)",
+      "why": "Base pack"
+    },
+    "murk": {
+      "category": "horror",
+      "purpose": "Punishes lingering in total darkness",
+      "why": "Makes light management matter"
+    },
+    "mutant-monsters": {
+      "category": "horror",
+      "purpose": "Mutant zombie/skeleton/creeper/enderman bosses",
+      "why": "Harder, scarier mobs"
+    },
+    "no-chat-reports": {
+      "category": "gameplay-qol",
+      "purpose": "Strip chat signing",
+      "why": "Privacy"
+    },
+    "obe": {
+      "category": "base-perf",
+      "base": [
+        "client"
+      ],
+      "purpose": "Faster block-entity rendering",
+      "why": "Base pack"
+    },
+    "ore-harvester": {
+      "category": "gameplay-qol",
+      "purpose": "Vein-mine whole ore veins",
+      "why": "Less grind (server-only, zero client cost)"
+    },
+    "peek": {
+      "category": "gameplay-qol",
+      "purpose": "Extra item/block info tooltips",
+      "why": "QoL"
+    },
+    "placeholder-api": {
+      "category": "library",
+      "purpose": "Text placeholder library",
+      "why": "Library",
+      "requiredBy": [
+        "modmenu"
+      ]
+    },
+    "polytone": {
+      "category": "golden-days-visuals",
+      "purpose": "Colormaps, block colours, biome colours from resource packs",
+      "why": "Golden Days colour/lighting"
+    },
+    "presence-footsteps": {
+      "category": "sound",
+      "purpose": "Material-aware footstep sounds for players/mobs",
+      "why": "Hearing things approach is key to horror"
+    },
+    "puzzles-lib": {
+      "category": "library",
+      "purpose": "Fuzs shared library",
+      "why": "Library",
+      "requiredBy": [
+        "mutant-monsters"
+      ]
+    },
+    "quick-pack": {
+      "category": "base-perf",
+      "base": [
+        "client"
+      ],
+      "purpose": "Faster resource/data pack zip loading",
+      "why": "Base pack; Golden Days is a 5.6 MB zip"
+    },
+    "scalablelux": {
+      "category": "base-perf",
+      "purpose": "Starlight-based light engine (server).",
+      "why": "Ships with Server Optimization; cheaper light updates during chunk loads. Alpha — watch for lighting glitches.",
+      "base": [
+        "server"
+      ]
+    },
+    "server-side-horror": {
+      "category": "horror",
+      "purpose": "Configurable ambient horror events (sounds, fake players, door slams)",
+      "why": "Server-driven scares that work for everyone"
+    },
+    "servercore": {
+      "category": "base-perf",
+      "purpose": "Server tuning: entity activation range, chunk-loading guards, dynamic settings.",
+      "why": "Ships with Server Optimization (activation-range + prevent-moving-into-unloaded-chunks enabled).",
+      "base": [
+        "server"
+      ]
+    },
+    "simple-voice-animations": {
+      "category": "voice",
+      "purpose": "Head animations while talking",
+      "why": "Immersion"
+    },
+    "simple-voice-chat": {
+      "category": "voice",
+      "purpose": "Proximity voice chat",
+      "why": "Core multiplayer experience"
+    },
+    "skinrestorer": {
+      "category": "gameplay-qol",
+      "purpose": "Restores player skins on an offline-mode server (/skin).",
+      "why": "The server runs online-mode=false; without it everyone is Steve/Alex. Added by hand on the server, now tracked."
+    },
+    "sodium": {
+      "category": "base-perf",
+      "base": [
+        "client"
+      ],
+      "purpose": "Rendering engine replacement",
+      "why": "Biggest client FPS win; base pack"
+    },
+    "sound-physics-perfected": {
+      "category": "sound",
+      "purpose": "Ray-traced reverb/occlusion",
+      "why": "Spatial audio for scares. Under review: suspected cause of voicechat buffer warnings; candidate swap to Sound Physics Remastered"
+    },
+    "spark": {
+      "category": "base-perf",
+      "purpose": "Profiler (/spark profiler, /spark tps).",
+      "why": "Ships with Server Optimization. First tool to reach for when the server lags.",
+      "base": [
+        "server"
+      ]
+    },
+    "spooky-doors": {
+      "category": "horror",
+      "purpose": "Horror-game style creaky doors",
+      "why": "Atmosphere"
+    },
+    "timeless": {
+      "category": "golden-days-visuals",
+      "purpose": "Brings back old/removed features",
+      "why": "Old-school feel"
+    },
+    "tree-harvester": {
+      "category": "gameplay-qol",
+      "purpose": "Fell whole trees with an axe",
+      "why": "Less grind (server-only, zero client cost); replaced TreeChop"
+    },
+    "tt20": {
+      "category": "base-perf",
+      "purpose": "Compensates timers (block breaking, potions, fluids, pickups) when TPS drops.",
+      "why": "Ships with Server Optimization. Changes game timing under lag — review in the Phase 7 audit.",
+      "base": [
+        "server"
+      ]
+    },
+    "vidalia": {
+      "category": "golden-days-visuals",
+      "purpose": "1.7/1.8-era visuals and animations (jar: animatium)",
+      "why": "Old-school feel"
+    },
+    "vmp-fabric": {
+      "category": "base-perf",
+      "purpose": "Very Many Players: networking/chunk-sending optimizations.",
+      "why": "Ships with Server Optimization.",
+      "base": [
+        "server"
+      ]
+    },
+    "voice-chat-interaction": {
+      "category": "voice",
+      "purpose": "Voice triggers sculk sensors/warden",
+      "why": "Being loud is dangerous (server-only logic, side=both for SP parity)"
+    },
+    "yacl": {
+      "category": "library",
+      "purpose": "YetAnotherConfigLib",
+      "why": "Library",
+      "requiredBy": [
+        "sound-physics-perfected",
+        "vidalia"
+      ]
+    }
   }
 }
