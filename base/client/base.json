@@ -1,4 +1,6 @@
 {
+  "base": "client",
+  "title": "Optimization",
   "projectId": "ddF4bxsz",
   "versionId": "jFBDwC9P",
   "versionNumber": "Sodium-26.3-2.5",
