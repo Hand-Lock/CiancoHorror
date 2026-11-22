@@ -54,6 +54,7 @@ the Prism instance, the Exaroton server and friends' installs are all derived fr
 - 26.3 pack formats: **data 121**, **resource 97** (`min_format`/`max_format` in pack.mcmeta). Folder names are singular (`function/`, `loot_table/`).
 - ESF's build is tagged for 26.1 but works on 26.3. FastQuit's is tagged `mc26.2` (base ships it).
 - Prism instance: `~/Library/Application Support/PrismLauncher/instances/CiancoHorror` (override with `CH_INSTANCE`).
+- Exaroton rewrites `white-list`/`enforce-whitelist` in server.properties on start (a file edit while offline did not survive). `whitelist on` from the console (`./ch server cmd`) does persist.
 - The server is offline-mode with `white-list=true`: whitelist entries need **offline** UUIDs (md5 `OfflinePlayer:<name>`, name is case-sensitive).
 - Exaroton: 6 GB RAM / 3 vCPU — anything chunk-gen heavy hurts; prefer pregen (Chunky) and lower simulation distance.
 

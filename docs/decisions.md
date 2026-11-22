@@ -23,3 +23,4 @@ Newest last. One line of context, the decision, and why. Mod-level "why" lives i
 - **SkinRestorer tracked, `side = "both"`.** It was added by hand on the server. *Why:* the server is offline-mode, so players need it to keep their skins.
 - **`white-list=true` + `enforce-whitelist=true` are managed keys.** *Why:* offline-mode + public address means anyone could join under any name.
 - **Server secrets are redacted** (`/secret|password|token|keystore/` keys) in all `ch` output.
+- **`enforce-whitelist` dropped from managed keys**: Exaroton resets it on start. `white-list` was turned on via console `whitelist on` (persists). Two whitelist entries were rewritten with offline UUIDs (they had premium UUIDs and would have been locked out).

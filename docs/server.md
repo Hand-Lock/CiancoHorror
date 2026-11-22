@@ -2,7 +2,7 @@
 
 - Plan: **6 GB RAM / 3 vCPU**. Chunk generation is the main risk → pregenerate (`/chunky`) and keep simulation distance low.
 - Base: **Server Optimization** by wicivo (Modrinth `2wkV8mHp`), snapshot in `base/server/`. Its perf mods are `side = "server"` in the pack; its configs live in `server/overrides/config/`.
-- `online-mode=false` + `white-list=true` + `enforce-whitelist=true`. Whitelist entries must use offline UUIDs; SkinRestorer gives players their skins back.
+- `online-mode=false` + `white-list=true` (set with the console `whitelist on`: Exaroton reset the file edit on start; `enforce-whitelist` is reset every start so it's unmanaged). Whitelist entries must use offline UUIDs; SkinRestorer gives players their skins back.
 - Exaroton runs the 26.x management server (`management-server-enabled=true`, `0.0.0.0:9900`, no TLS). Its secret is redacted in every `ch` output; never print `server.properties` raw.
 - Software: Fabric 0.20.1 on MC 26.3 (verify with `./ch server status`).
 - Token: macOS Keychain item `ciancohorror-exaroton` (create at exaroton.com → Account → API). The CLI reads it; never stored in files.
