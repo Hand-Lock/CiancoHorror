@@ -4,9 +4,9 @@
   "spawnCheckTicks": 200,
   "spawnChance": 0.15,
   "health": 60.0,
-  "movementSpeed": 0.29,
-  "damage": 5.0,
-  "attackReach": 2.8,
+  "movementSpeed": 0.5,
+  "damage": 10.0,
+  "attackReach": 3.0,
   "windupTicks": 14,
   "recoveryTicks": 24,
   "encounter": {

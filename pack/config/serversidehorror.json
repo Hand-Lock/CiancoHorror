@@ -1,5 +1,5 @@
 {
-  "grace_period": 3,
+  "grace_period": 0,
   "grace_period_applies_to_traps": true,
   "herobrine_starer_chance": 120000,
   "herobrine_starer_enable": true,
@@ -22,13 +22,13 @@
   "setting_up_new_traps_chance": 1500000,
   "setting_up_new_traps_enable": true,
   "burn_down_house_chance_per_wake_up": 100,
-  "burn_down_house_enable": false,
+  "burn_down_house_enable": true,
   "joining_on_bedrock_chance": 70,
-  "joining_on_bedrock_enable": false,
+  "joining_on_bedrock_enable": true,
   "joining_in_dungeon_chance": 140,
   "joining_in_dungeon_enable": true,
   "removing_leaves_chance": 2000000,
-  "removing_leaves_enable": false,
+  "removing_leaves_enable": true,
   "random_signs_chance": 500000,
   "random_signs_enable": true,
   "random_signs_texts": [

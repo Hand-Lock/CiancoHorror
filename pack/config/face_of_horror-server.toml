@@ -1,14 +1,14 @@
 [jumpscare_timing]
 	#Base interval between jumpscares in minutes
-	defaultIntervalMinutes = 5
+	defaultIntervalMinutes = 20
 	#Interval between jumpscares during full moon in minutes
-	fullMoonIntervalMinutes = 2
+	fullMoonIntervalMinutes = 8
 	#Whether Face jumpscares use the special full-moon interval during vanilla full-moon nights
 	enableSpecialFullMoonFaceSpawnTime = true
 	#Number of Minecraft days between Spirit of the Harvest Moon event nights. The first world day is always skipped
 	harvestMoonIntervalDays = 8
 	#Random variation applied to intervals in seconds (+/-)
-	variationSeconds = 15
+	variationSeconds = 60
 	#Time in ticks of the paralysis effect
 	effectTimeTicks = 40
 	#Whether the interval should increase by 10% each day

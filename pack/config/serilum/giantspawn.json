@@ -10,7 +10,7 @@
 	},
 	"shouldBurnGiantsInDaylight": {
 		"//": "If enabled, burns giants when daylight shines upon them.",
-		"value": false
+		"value": true
 	},
 	"onlySpawnGiantOnSurface": {
 		"//": "If enabled, a giant will only spawn on the surface.",
@@ -46,7 +46,7 @@
 	},
 	"preventGiantDespawning": {
 		"//": "If enabled, giants never despawn.",
-		"value": true
+		"value": false
 	},
 	"giantsUseZombieSounds": {
 		"//": "If enabled, giants make the sounds of a zombie, at a lower pitch.",
