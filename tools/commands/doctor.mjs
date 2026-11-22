@@ -6,7 +6,7 @@ import { ensureJars, jarMeta, allIds, jarMentions } from '../lib/jars.mjs';
 import { DROPPED, LOCAL_ONLY } from '../lib/rules.mjs';
 import { satisfies } from '../lib/semver.mjs';
 
-export const help = 'doctor [--offline]      Check pack consistency (versions, deps, dup ids, catalog, orphan configs)';
+export const help = 'doctor [--offline]                       Check pack consistency (versions, deps, dup ids, catalog, orphan configs)';
 
 // Config names that don't match their owner's mod id (config name → owning mod id).
 const CONFIG_OWNERS = {

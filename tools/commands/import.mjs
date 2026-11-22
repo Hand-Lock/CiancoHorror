@@ -7,7 +7,7 @@ import { PRESERVE, LOCAL_ONLY, DROPPED } from '../lib/rules.mjs';
 import { fetchBase, writeBaseSnapshot } from '../lib/base.mjs';
 import { setPreserve } from '../lib/index-toml.mjs';
 
-export const help = 'import:prism            Import mods/configs from the Prism instance (exact versions)';
+export const help = 'import:prism                             Import mods/configs from the Prism instance (exact versions)';
 
 function convertMeta(t, { forceBoth }) {
   const side = forceBoth && t.side === 'server' ? 'both' : (t.side || 'both');

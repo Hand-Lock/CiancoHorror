@@ -15,6 +15,7 @@ const COMMANDS = {
   'server:local': 'server-local',
   server: 'server',
   release: 'release',
+  'rp:build': 'rp',
   'import:prism': 'import',
 };
 

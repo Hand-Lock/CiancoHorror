@@ -1,0 +1,17 @@
+{
+  "$comment": "Rules for `ch server deploy`. Only files listed in the remote manifest are ever deleted; world data is never touched (except our own datapack folder).",
+  "address": "lauseta.exaroton.me",
+  "manifest": ".ciancohorror-manifest.json",
+  "include": ["mods/**", "config/**"],
+  "exclude": [
+    "config/voicechat/voicechat-client.properties",
+    "config/**/*-client.*",
+    "config/*client*.json*"
+  ],
+  "keepRemoteKeys": {
+    "config/voicechat/voicechat-server.properties": ["port", "bind_address", "voice_host"]
+  },
+  "datapack": { "src": "src/datapack", "name": "ciancohorror" },
+  "serverProperties": "server/server.properties",
+  "smokeTestBeforeDeploy": true
+}
