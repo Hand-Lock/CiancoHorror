@@ -10,6 +10,8 @@ export const help = [
 
 // Friends' instances track this branch (not main), so WIP on main never reaches them.
 export const RELEASE_BRANCH = 'release';
+// Prism built-in icon key for the onboarding instance (matches the dev instance).
+export const PRISM_ICON = 'herobrine';
 
 export function repoSlug() {
   try {
@@ -41,7 +43,8 @@ export function buildOnboardingZip(slug, version) {
     'ConfigVersion=1.3',
     'InstanceType=OneSix',
     `name=CiancoHorror`,
-    fs.existsSync(icon) ? 'iconKey=ciancohorror' : 'iconKey=default',
+    // docs/icon.png ships as a custom icon; otherwise Prism's built-in Herobrine icon
+    `iconKey=${fs.existsSync(icon) ? 'ciancohorror' : PRISM_ICON}`,
     'OverrideCommands=true',
     `PreLaunchCommand="$INST_JAVA" -jar packwiz-installer-bootstrap.jar ${packUrl(slug)}`,
     'OverrideMemory=true',
