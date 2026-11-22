@@ -1,0 +1,40 @@
+{
+	// Enable support for dynamic light sources (held items, dropped items, nearby players) based on JSON definitions in data/murk/dynamiclights/item/. This allows the server to count item light levels independently of client mods. Default: false
+	"general_enableDynamicLightSupport": false,
+	// Light level below which Murk's Grasp effect is triggered (0-15). Default: 3
+	"general_lightThreshold": 3,
+	// Whether to show warning and effect application messages in the action bar. Default: true
+	"general_enableWarningText": true,
+	// Time in seconds before the warning message appears in low light. Default: 5.0
+	"general_warningMessageDelay": 5.0,
+	// Time in seconds after the warning message until Murk's Grasp is applied. Default: 10.0
+	"general_effectDelayAfterWarning": 10.0,
+	// List of dimension IDs where the effect applies (e.g., "minecraft:overworld", "minecraft:the_nether"). Default: ["minecraft:overworld"]
+	"general_dimensions": [
+		"minecraft:overworld"
+	],
+	// Whether to use the biome whitelist instead of the blacklist. If true, Murk's Grasp only applies in biomes listed in Biome Whitelist. If false, it applies everywhere except biomes in Biome Blacklist. Default: false
+	"general_useBiomeWhitelist": false,
+	// List of biome IDs where Murk's Grasp effect is disabled when useBiomeWhitelist is false. "Examples: minecraft:deep_dark, minecraft:plains, minecraft:desert, minecraft:forest" Can be empty. Default: []
+	"general_biomeBlacklist": [],
+	// List of biome IDs where Murk's Grasp effect is enabled when useBiomeWhitelist is true. Can be empty. Default: []
+	"general_biomeWhitelist": [],
+	// Enable light level checks when the player is underwater. Default: false
+	"general_enableUnderwaterLightCheck": false,
+	// Enable Murk's Grasp effect for players in Creative mode. Default: false
+	"general_affectCreativePlayers": false,
+	// Duration (in seconds) that effects persist after entering a lit area. Default: 3.0
+	"effect_murksGraspPersistenceTime": 3.0,
+	// Whether Murk's Grasp effect also applies Blindness. Default: true
+	"effect_blindnessEnabled": true,
+	// Base damage per interval when Murk's Grasp effect is applied. Default: 3.5
+	"effect_baseDamage": 3.5,
+	// Maximum damage per interval after 60 seconds of Murk's Grasp effect. Default: 6.0
+	"effect_maxDamage": 6.0,
+	// Time in seconds between damage ticks from Murk's Grasp. Default: 4.5
+	"effect_damageInterval": 4.5,
+	// Radius (in blocks) to detect dropped light-emitting items. Default: 5.0
+	"lightSource_droppedItemRadius": 5.0,
+	// Radius (in blocks) to detect light from nearby players' items. Default: 5.0
+	"lightSource_nearbyPlayerRadius": 5.0
+}

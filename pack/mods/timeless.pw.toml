@@ -1,0 +1,13 @@
+name = "Timeless"
+filename = "timeless-26.3-1.4.1.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/nJxEs2tZ/versions/YXxSK5Cm/timeless-26.3-1.4.1.jar"
+hash-format = "sha512"
+hash = "fad179db899f9f57ca2f5e7633a51515b1d955cc30f71b1e0096c92ef1d6445563f955446f57cdb5770dea95d404d1641e2cd216df41f0c8793d004170ee8369"
+
+[update.modrinth]
+mod-id = "nJxEs2tZ"
+version = "YXxSK5Cm"
+

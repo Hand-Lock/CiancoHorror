@@ -1,0 +1,13 @@
+name = "Enhanced Celestials 2: Default Lunar Events"
+filename = "Enhanced-Celestials-2-Default-Lunar-Events-Fabric-26.3-5.0.0.1.jar"
+side = "both"
+
+[download]
+url = "https://cdn.modrinth.com/data/19P0GlZk/versions/yubv1rmD/Enhanced-Celestials-2-Default-Lunar-Events-Fabric-26.3-5.0.0.1.jar"
+hash-format = "sha512"
+hash = "18969b171b3a9350dd1f4c88113c430310bcfdf3843642989b52a1dd1a05b2b1936e0a63b85de9512ef68e086c2660f7934c5444617700d867ac29630ba7ff0e"
+
+[update.modrinth]
+mod-id = "19P0GlZk"
+version = "yubv1rmD"
+

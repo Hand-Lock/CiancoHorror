@@ -1,0 +1,8 @@
+{
+  "interpolation": "multiplayerOnly",
+  "minInterpolationDist": 64.0,
+  "applyVelocity": true,
+  "applyVelocityForInterpolated": true,
+  "unaffectedEntities": [],
+  "disableDefaultUnaffectedEntities": false
+}

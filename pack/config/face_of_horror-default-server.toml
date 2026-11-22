@@ -1,0 +1,25 @@
+[jumpscare_timing]
+	#Base interval between jumpscares in minutes
+	defaultIntervalMinutes = 5
+	#Interval between jumpscares during full moon in minutes
+	fullMoonIntervalMinutes = 2
+	#Whether Face jumpscares use the special full-moon interval during vanilla full-moon nights
+	enableSpecialFullMoonFaceSpawnTime = true
+	#Number of Minecraft days between Spirit of the Harvest Moon event nights. The first world day is always skipped
+	harvestMoonIntervalDays = 8
+	#Random variation applied to intervals in seconds (+/-)
+	variationSeconds = 15
+	#Time in ticks of the paralysis effect
+	effectTimeTicks = 40
+	#Whether the interval should increase by 10% each day
+	increaseIntervalWithDays = true
+	#Whether paralysis effect should be applied to the player
+	applyParalysis = true
+	#Whether Face entities play a disappearance animation when their lifespan ends
+	enableDisappearAnimations = true
+	#Whether the Spirit of the Harvest Moon event can occur
+	HarvestMoonEvent = false
+	#Interval between ambient sound in minutes
+	ambientSoundIntervalMinutes = 5
+	#Whether ambient sounds should play
+	playSounds = true

@@ -1,0 +1,13 @@
+name = "CiancoHorror"
+author = "Hand-Lock"
+version = "0.1.0"
+pack-format = "packwiz:1.1.0"
+
+[index]
+file = "index.toml"
+hash-format = "sha256"
+hash = "e118ea122f33ed1c3a74ac4727d4df2ce99da2dd0c7f40ac12e1d2d03b069d75"
+
+[versions]
+fabric = "0.20.1"
+minecraft = "26.3"

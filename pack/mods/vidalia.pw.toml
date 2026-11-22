@@ -1,0 +1,13 @@
+name = "Vidalia"
+filename = "animatium-4.4.1+26.3-fabric.jar"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/zy0karK1/versions/oAAPjhsw/animatium-4.4.1%2B26.3-fabric.jar"
+hash-format = "sha512"
+hash = "1d2fd041813a024fe1194b8631fb8f857a1e325c9a398a2960808bcf3125beae2f57047b3cdfc444ffddfa00e111ab4e1f00b49d0119546a81c88ab0efa4f3c0"
+
+[update.modrinth]
+mod-id = "zy0karK1"
+version = "oAAPjhsw"
+

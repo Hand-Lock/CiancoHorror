@@ -1,0 +1,3 @@
+# Files in pack/ that are NOT distributed (gitignore syntax, relative to pack/)
+.packwizignore
+*.md

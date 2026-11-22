@@ -1,0 +1,12 @@
+syncChunkWrites:false
+simulationDistance:8
+enableVsync:false
+maxFps:260
+fullscreen:true
+tutorialStep:none
+skipMultiplayerWarning:true
+joinedFirstServer:true
+textureFiltering:1
+renderDistance:12
+resourcePacks:["serilum_mod_translations","vanilla","programmer_art","file/golden-days-base-16.7-[1.20-to-26.4].zip","face_of_horror_custom_sounds"]
+musicToast:"never"

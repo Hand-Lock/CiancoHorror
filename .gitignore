@@ -1,0 +1,15 @@
+# build outputs / caches
+build/
+cache/
+dist/
+tools/node_modules/
+.DS_Store
+# never commit secrets or personal instance state
+*.env
+.env*
+servers.dat*
+usercache.json
+.claude/settings.local.json
+# packwiz-installer state if run in-tree
+pack/packwiz.json
+pack/packwiz-installer.jar

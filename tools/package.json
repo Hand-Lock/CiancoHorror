@@ -1,0 +1,16 @@
+{
+  "name": "ciancohorror-tools",
+  "private": true,
+  "type": "module",
+  "description": "ch — CiancoHorror modpack CLI",
+  "bin": {
+    "ch": "./ch.mjs"
+  },
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "exaroton": "^2.1.0",
+    "smol-toml": "^1.9.1"
+  }
+}

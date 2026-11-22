@@ -1,0 +1,7 @@
+{
+  "increasedFollowRange": true,
+  "mobsLessFear": true,
+  "merchantHostility": true,
+  "pathPassengerAware": true,
+  "enableDebugInfo": false
+}

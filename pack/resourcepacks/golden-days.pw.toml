@@ -1,0 +1,13 @@
+name = "Golden Days Base"
+filename = "golden-days-base-16.7-[1.20-to-26.4].zip"
+side = "client"
+
+[download]
+url = "https://cdn.modrinth.com/data/BFzJ6aQL/versions/kn202XaL/golden-days-base-16.7-%5B1.20-to-26.4%5D.zip"
+hash-format = "sha512"
+hash = "de55d4d26c7ddbbe58935354cf5aae6ab899a315a28ab4df121fdc0836b4d45c69bf72804bb6906f27732156fff204626faadf7bd1f9bd6edf5932653f899052"
+
+[update.modrinth]
+mod-id = "BFzJ6aQL"
+version = "kn202XaL"
+

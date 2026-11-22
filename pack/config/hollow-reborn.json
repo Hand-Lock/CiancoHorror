@@ -1,0 +1,24 @@
+{
+  "naturalEncounters": true,
+  "firstEncounterDelayTicks": 6000,
+  "spawnCheckTicks": 200,
+  "spawnChance": 0.15,
+  "health": 60.0,
+  "movementSpeed": 0.29,
+  "damage": 5.0,
+  "attackReach": 2.8,
+  "windupTicks": 14,
+  "recoveryTicks": 24,
+  "encounter": {
+    "presenceTicks": 160,
+    "stalkTicks": 500,
+    "chaseTicks": 500,
+    "searchTicks": 200,
+    "retreatTicks": 30,
+    "maximumPhysicalTicks": 1200,
+    "lostSightTicks": 40,
+    "cooldownTicks": 4800,
+    "deathCooldownTicks": 6000,
+    "triggerDistance": 8.0
+  }
+}
