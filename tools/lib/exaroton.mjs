@@ -81,3 +81,7 @@ export function patchProps(text, updates) {
   for (const [k, v] of left) lines.push(`${k}=${v}`);
   return lines.join('\n') + '\n';
 }
+
+/** Never print or persist secrets read from the server (rcon.password, management-server-secret, …). */
+export const SECRET_KEY = /secret|password|token|keystore/i;
+export const redact = (k, v) => (SECRET_KEY.test(k) && v ? '<redacted>' : v);

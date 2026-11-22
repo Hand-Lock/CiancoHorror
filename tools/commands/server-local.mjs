@@ -4,6 +4,7 @@ import path from 'node:path';
 import { spawn } from 'node:child_process';
 import { P, log, color, packInfo, http, download, java, copyFile, die } from '../lib/util.mjs';
 import { buildServerStage } from '../lib/stage.mjs';
+import { deployCfg, parseProps, patchProps } from '../lib/exaroton.mjs';
 import { parseLog, summarize } from './logs.mjs';
 
 export const help = 'server:local [--fresh] [--keep-running] [--timeout=600]  Smoke-test the server set locally (boots to "Done")';
@@ -36,6 +37,13 @@ export async function smokeTest({ fresh = false, keepRunning = false, timeoutSec
   fs.writeFileSync(path.join(dir, 'eula.txt'), '# Local smoke-test server for CiancoHorror (Minecraft EULA: https://aka.ms/MinecraftEULA)\neula=true\n');
   const propsFile = path.join(dir, 'server.properties');
   if (!fs.existsSync(propsFile)) fs.writeFileSync(propsFile, 'server-port=25599\nonline-mode=false\nview-distance=6\nsimulation-distance=6\nspawn-protection=0\nmotd=CiancoHorror smoke test\nenable-query=false\n');
+  // mirror the managed keys of the real server (minus access control, so you can join the local one)
+  const managed = path.join(P.root, deployCfg().serverProperties);
+  if (fs.existsSync(managed)) {
+    const LOCAL_KEEP = new Set(['server-port', 'online-mode', 'white-list', 'enforce-whitelist', 'motd']);
+    const keys = Object.fromEntries([...parseProps(fs.readFileSync(managed, 'utf8'))].filter(([k]) => !LOCAL_KEEP.has(k)));
+    fs.writeFileSync(propsFile, patchProps(fs.readFileSync(propsFile, 'utf8'), keys));
+  }
   copyFile(launcher, path.join(dir, 'fabric-server-launch.jar'));
   const mods = stage.files.filter((f) => f.remote.startsWith('mods/')).length;
   log.info(`booting ${mods} server mods in build/server (MC ${mc}, Fabric ${loader})…`);

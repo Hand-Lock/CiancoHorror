@@ -2,9 +2,9 @@
 // Re-runnable: overwrites pack/mods, pack/resourcepacks, pack/config, base/.
 import fs from 'node:fs';
 import path from 'node:path';
-import { P, log, die, readTOML, tomlStringify, walk, copyFile, matchAny, refresh, readJSON } from '../lib/util.mjs';
+import { P, log, die, readTOML, tomlStringify, walk, copyFile, matchAny, refresh } from '../lib/util.mjs';
 import { PRESERVE, LOCAL_ONLY, DROPPED } from '../lib/rules.mjs';
-import { fetchBase, writeBaseSnapshot } from '../lib/base.mjs';
+import { BASES, fetchBase, writeBaseSnapshot, currentBase } from '../lib/base.mjs';
 import { setPreserve } from '../lib/index-toml.mjs';
 
 export const help = 'import:prism                             Import mods/configs from the Prism instance (exact versions)';
@@ -50,14 +50,14 @@ export async function run() {
 
   log.step('Base snapshot (Optimization)');
   const instCfg = fs.readFileSync(path.join(P.instance, 'instance.cfg'), 'utf8');
-  const baseVid = /ManagedPackVersionID=(\S+)/.exec(instCfg)?.[1] || readJSON(path.join(P.base, 'base.json'), {}).versionId;
-  if (!baseVid) die('cannot determine base version (instance no longer managed and base/base.json missing)');
-  const snap = await fetchBase(baseVid);
-  writeBaseSnapshot(snap);
+  const baseVid = /ManagedPackVersionID=(\S+)/.exec(instCfg)?.[1] || currentBase(BASES.client)?.versionId;
+  if (!baseVid) die('cannot determine base version (instance no longer managed and base/client/base.json missing)');
+  const snap = await fetchBase(BASES.client, baseVid);
+  writeBaseSnapshot(BASES.client, snap);
   log.ok(`base: Optimization ${snap.versionNumber} (${snap.mods.length} mods, ${snap.overrides.length} overrides)`);
 
   log.step('options.txt (curated: base defaults + pack resource-pack order)');
-  const baseOpts = fs.readFileSync(path.join(P.base, 'overrides', 'options.txt'), 'utf8').trimEnd().split('\n');
+  const baseOpts = fs.readFileSync(path.join(BASES.client.dir, 'overrides', 'options.txt'), 'utf8').trimEnd().split('\n');
   const inst = fs.readFileSync(path.join(P.mc, 'options.txt'), 'utf8').split('\n');
   const keep = ['resourcePacks:', 'renderDistance:', 'musicToast:'];
   const extra = inst.filter((l) => keep.some((k) => l.startsWith(k)));

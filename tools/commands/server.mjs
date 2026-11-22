@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { P, log, color, table, die, confirm, git, packInfo, hashBuf, writeJSON } from '../lib/util.mjs';
-import { getServer, statusName, waitFor, listRemote, readRemoteText, downloadRemote, parseProps, patchProps, deployCfg } from '../lib/exaroton.mjs';
+import { getServer, statusName, waitFor, listRemote, readRemoteText, downloadRemote, parseProps, patchProps, deployCfg, redact } from '../lib/exaroton.mjs';
 import { buildServerStage } from '../lib/stage.mjs';
 import { parseLog, summarize, loadedMods } from './logs.mjs';
 
@@ -195,7 +195,7 @@ async function drift(server) {
   } else log.info('no mod list in current log (server offline or log rotated)');
   const groups = summarize(entries);
   table(groups.slice(0, 20).map((g) => [g.level, g.count, g.sample.slice(0, 140)]), ['lvl', 'n', 'message']);
-  const report = { at: new Date().toISOString(), address: server.address, software: server.software, upload: p.upload.map((u) => [u.remote, u.reason]), adopt: p.adopt.map((a) => a.remote), unmanaged: p.unmanaged, propChanges: p.propChanges, props: Object.fromEntries(p.props.map) };
+  const report = { at: new Date().toISOString(), address: server.address, software: server.software, upload: p.upload.map((u) => [u.remote, u.reason]), adopt: p.adopt.map((a) => a.remote), unmanaged: p.unmanaged, propChanges: p.propChanges, props: Object.fromEntries([...p.props.map].map(([k, v]) => [k, redact(k, v)])) };
   const f = path.join(P.build, `drift-${ts()}.json`);
   writeJSON(f, report);
   log.ok(`report saved: ${path.relative(P.root, f)}`);
@@ -233,9 +233,9 @@ export async function run({ args, flags }) {
     }
     case 'props': {
       const p = await remoteProps(server);
-      if (!rest[0]) return table([...p.map].sort().map(([k, v]) => [k, v]));
+      if (!rest[0]) return table([...p.map].sort().map(([k, v]) => [k, redact(k, v)]));
       const [k, v] = rest[0].split('=');
-      if (v === undefined) return console.log(p.map.get(k) ?? '(unset)');
+      if (v === undefined) return console.log(redact(k, p.map.get(k)) ?? '(unset)');
       if (!(await confirm(`set ${k}: ${p.map.get(k)} → ${v}? (consider adding it to server/server.properties instead)`, { yes: flags.yes }))) die('aborted');
       await server.getFile('server.properties').putContent(patchProps(p.text, { [k]: v })); return log.ok('saved (restart to apply)');
     }

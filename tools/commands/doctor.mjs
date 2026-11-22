@@ -2,27 +2,15 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { P, log, color, git, refresh, readMods, packInfo, modrinth, readJSON, matchAny } from '../lib/util.mjs';
-import { ensureJars, jarMeta, allIds, jarMentions } from '../lib/jars.mjs';
+import { ensureJars, jarMeta, allIds } from '../lib/jars.mjs';
 import { DROPPED, LOCAL_ONLY } from '../lib/rules.mjs';
 import { satisfies } from '../lib/semver.mjs';
+import { ownerResolver } from '../lib/configs.mjs';
+import { baseProjectIds } from '../lib/base.mjs';
 
 export const help = 'doctor [--offline]                       Check pack consistency (versions, deps, dup ids, catalog, orphan configs)';
 
-// Config names that don't match their owner's mod id (config name → owning mod id).
-const CONFIG_OWNERS = {
-  'animatium3.json': 'animatium',
-  'hollow-reborn.json': 'hollowreborn',
-  'yacl.json5': 'yet_another_config_lib_v3',
-  'serilum': 'collective',
-  'face_of_horror-default-server.toml': 'face_of_horror',
-  'SoundPhysicsPerfected.json5': 'sound_physics_perfected',
-  'murk.json5': 'murk',
-};
 const IGNORE_DEPS = new Set(['minecraft', 'fabricloader', 'java', 'fabric', 'fabric-api']);
-
-const norm = (s) => s.toLowerCase().replace(/\.(json5?|jsonc|toml|properties|txt|cfg)$/, '')
-  .replace(/[-_.](client|common|server|default-server|mixins?|mixin|options|config|prefs)$/g, '')
-  .replace(/[-_.](client|common|server|mixins?)$/g, '').replace(/[^a-z0-9]/g, '');
 
 export async function run({ flags }) {
   const issues = [];
@@ -89,27 +77,44 @@ export async function run({ flags }) {
   }
   for (const [id, slugs] of Object.entries(seen)) if (slugs.length > 1) add('error', `duplicate mod id "${id}": ${slugs.join(', ')}`);
 
+  // 3b. per-side deps: each side's set must be self-sufficient
+  for (const [side, keep] of [['server', (m) => m.side !== 'client'], ['client', (m) => m.side !== 'server']]) {
+    const set = mods.filter(keep);
+    const sideIds = allIds(set.map((m) => metas[m.slug]));
+    for (const m of set) for (const dep of Object.keys(metas[m.slug].depends || {})) {
+      if (IGNORE_DEPS.has(dep) || dep.startsWith('fabric-')) continue;
+      if (ids.has(dep) && !sideIds.has(dep)) add('error', `${m.slug} (side ${m.side}) depends on "${dep}", which is not in the ${side} set — fix its side`);
+    }
+  }
+
   // 4. catalog coverage
   const catalog = readJSON(path.join(P.docs, 'catalog.json'), { mods: {} });
   for (const m of all) if (!catalog.mods?.[m.slug]) add('warn', `${m.slug}: missing from docs/catalog.json`);
   for (const slug of Object.keys(catalog.mods || {})) if (!all.find((m) => m.slug === slug)) add('warn', `catalog entry "${slug}" has no mod in the pack`);
+  const inBases = baseProjectIds();
+  for (const m of mods) {
+    const want = (inBases.get(m.projectId) || []).sort().join(',');
+    const have = [...(catalog.mods?.[m.slug]?.base || [])].sort().join(',');
+    if (catalog.mods?.[m.slug] && want !== have) add('warn', `${m.slug}: catalog base flag [${have}] ≠ bases that ship it [${want}]`);
+  }
 
-  // 5. config hygiene
-  const cfgRoot = path.join(P.pack, 'config');
-  const entries = fs.existsSync(cfgRoot) ? fs.readdirSync(cfgRoot) : [];
-  for (const e of entries) {
-    const rel = `config/${e}`;
-    if (matchAny(rel, DROPPED) || matchAny(rel + '/x', DROPPED)) { add('error', `${rel}: leftover from a removed mod (rules.mjs DROPPED)`); continue; }
-    if (matchAny(rel, LOCAL_ONLY)) { add('error', `${rel}: machine-local file is being shipped (rules.mjs LOCAL_ONLY)`); continue; }
-    const owner = CONFIG_OWNERS[e];
-    if (owner) { if (!ids.has(owner)) add('warn', `${rel}: owner "${owner}" not in pack — orphan?`); continue; }
-    const key = norm(e);
-    const hit = [...ids].some((id) => { const n = id.toLowerCase().replace(/[^a-z0-9]/g, ''); return n.length >= 3 && (n === key || key.startsWith(n) || n.startsWith(key)); });
-    if (hit) continue;
-    const stem = e.replace(/\.[^.]+$/, '');
-    const mention = Object.entries(jars).find(([, j]) => jarMentions(j, stem));
-    if (!mention) add('warn', `${rel}: no mod references it — orphaned config?`);
-    else if (flags.verbose) log.info(`${rel} ← ${mention[0]}`);
+  // 5. config hygiene (pack/config for all mods, server/overrides/config for the server set)
+  const owner = ownerResolver(jars);
+  const serverSlugs = new Set(mods.filter((m) => m.side !== 'client').map((m) => m.slug));
+  for (const [root, serverOnly] of [[path.join(P.pack, 'config'), false], [path.join(P.server, 'overrides', 'config'), true]]) {
+    if (!fs.existsSync(root)) continue;
+    const shown = path.relative(P.root, root);
+    for (const e of fs.readdirSync(root)) {
+      if (e === '.DS_Store') continue;
+      const rel = `config/${e}`;
+      if (matchAny(rel, DROPPED) || matchAny(rel + '/x', DROPPED)) { add('error', `${shown}/${e}: leftover from a removed mod (rules.mjs DROPPED)`); continue; }
+      if (matchAny(rel, LOCAL_ONLY)) { add('error', `${shown}/${e}: machine-local file is being shipped (rules.mjs LOCAL_ONLY)`); continue; }
+      const o = owner(e);
+      if (!o) { add('warn', `${shown}/${e}: no mod references it — orphaned config?`); continue; }
+      if (!o.slug) { add('warn', `${shown}/${e}: owner "${o.id}" not in pack — orphan?`); continue; }
+      if (serverOnly && !serverSlugs.has(o.slug)) add('warn', `${shown}/${e}: owner ${o.slug} is not in the server set`);
+      if (flags.verbose) log.info(`${shown}/${e} ← ${o.slug} (${o.how})`);
+    }
   }
 
   // report

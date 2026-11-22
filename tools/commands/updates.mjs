@@ -2,7 +2,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { P, log, color, table, readMods, packInfo, modrinth, tomlStringify, refresh, git, die } from '../lib/util.mjs';
-import { currentBase } from '../lib/base.mjs';
+import { baseProjectIds } from '../lib/base.mjs';
 
 export const help = [
   'updates [--release-only]                 List available updates (Modrinth hash check)',
@@ -48,14 +48,13 @@ export function writeVersion(m, v) {
 
 export async function run({ args, flags }) {
   const ups = await findUpdates({ releaseOnly: !!flags['release-only'] });
-  const base = currentBase();
-  const baseProjects = new Set((base?.mods || []).map((b) => b.projectId));
+  const baseProjects = baseProjectIds();
   if (!ups.length) return log.ok('everything up to date');
 
   const typeColor = (t) => (t === 'release' ? color.green(t) : t === 'beta' ? color.yellow(t) : color.red(t));
   table(ups.map(({ mod, current, latest }) => [
     mod.slug, current?.version_number ?? '?', latest.version_number, typeColor(latest.version_type),
-    latest.date_published.slice(0, 10), baseProjects.has(mod.projectId) ? color.dim('base') : '',
+    latest.date_published.slice(0, 10), baseProjects.has(mod.projectId) ? color.dim(`base:${baseProjects.get(mod.projectId).join('+')}`) : '',
   ]), ['mod', 'current', 'latest', 'type', 'published', '']);
 
   if (!flags.apply) {
