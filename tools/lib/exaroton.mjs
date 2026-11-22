@@ -50,7 +50,14 @@ export async function waitFor(server, wanted, { timeoutMs = 600_000, onTick } = 
 export async function listRemote(server, dir, { recursive = true } = {}) {
   const out = [];
   let info;
-  try { info = await server.getFile(dir).getInfo(); } catch (e) { if (/404|not found/i.test(e.message)) return out; throw e; }
+  // the file API occasionally answers with an empty body (exaroton lib → "reading 'success'"); retry those
+  for (let attempt = 1; ; attempt++) {
+    try { info = await server.getFile(dir).getInfo(); break; } catch (e) {
+      if (/404|not found/i.test(e.message)) return out;
+      if (attempt >= 3) throw e;
+      await new Promise((r) => setTimeout(r, 1500 * attempt));
+    }
+  }
   if (!info.isDirectory) return [{ path: info.path, size: info.size, isDirectory: false }];
   const kids = info.children ?? (await server.getFile(dir).getChildren());
   for (const k of kids) {
