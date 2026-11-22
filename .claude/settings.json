@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(./ch doctor:*)",
+      "Bash(./ch help)",
+      "Bash(./ch updates)",
+      "Bash(./ch updates --release-only)",
+      "Bash(./ch base:check)",
+      "Bash(./ch logs:*)",
+      "Bash(./ch server:local:*)",
+      "Bash(./ch client:pull)",
+      "Bash(./ch server status)",
+      "Bash(./ch server drift)",
+      "Bash(./ch server logs:*)",
+      "Bash(./ch server ls:*)",
+      "Bash(./ch server deploy --dry-run:*)",
+      "Bash(~/go/bin/packwiz refresh:*)",
+      "Bash(~/go/bin/packwiz list:*)",
+      "Bash(git status:*)",
+      "Bash(git diff:*)",
+      "Bash(git log:*)",
+      "Bash(git show:*)",
+      "Bash(curl -s https://api.modrinth.com/:*)",
+      "Bash(curl -s \"https://api.modrinth.com/:*)"
+    ],
+    "deny": [
+      "Bash(security find-generic-password:*)",
+      "Read(./cache/**/servers.dat)"
+    ]
+  }
+}
