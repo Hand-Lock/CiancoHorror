@@ -17,6 +17,9 @@ Using another launcher (Modrinth App, ATLauncher…)? Import the `.mrpack` from 
 
 **Voice chat:** press `V` for the voice chat menu and set your microphone there. Your audio settings stay on your machine.
 
+**"Pre-Launch command failed" / the log shows `java-jar`?** That's a bug in the v0.1.1 zip. Either re-import the zip from the latest release, or fix the existing instance (this keeps your worlds): instance → **Edit → Settings → Custom commands**, tick the box, and set **Pre-launch command** to
+`"$INST_JAVA" -jar packwiz-installer-bootstrap.jar https://raw.githubusercontent.com/Hand-Lock/CiancoHorror/release/pack/pack.toml`
+
 **Something broke?** Send `logs/latest.log` (or the newest file in `crash-reports/`) from the instance folder.
 
 ## For maintainers

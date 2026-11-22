@@ -28,6 +28,16 @@ function bump(v, kind) {
   return kind === 'major' ? `${a + 1}.0.0` : kind === 'minor' ? `${a}.${b + 1}.0` : `${a}.${b}.${c + 1}`;
 }
 
+// Prism reads instance.cfg with Qt's QSettings INI parser: an unescaped `"…"` is taken as a quoted string,
+// so the quotes are stripped and the whitespace after the closing quote is dropped
+// (`"$INST_JAVA" -jar` → `$INST_JAVA-jar`, v0.1.1 bug). Quote every free-text value and escape `\` and `"`.
+export const iniString = (s) => `"${String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"')}"`;
+/** Inverse of iniString for a quoted QSettings value (just enough to self-check what we wrote). */
+export function iniUnescape(v) {
+  if (!/^".*"$/.test(v)) return v;
+  return v.slice(1, -1).replace(/\\(["\\])/g, '$1');
+}
+
 /** Build dist/CiancoHorror-Prism.zip: a Prism instance that self-updates from the release branch on every launch. */
 export function buildOnboardingZip(slug, version) {
   const pack = packInfo();
@@ -38,21 +48,27 @@ export function buildOnboardingZip(slug, version) {
   copyFile(INSTALLER_BOOTSTRAP, path.join(mc, 'packwiz-installer-bootstrap.jar'));
   const icon = path.join(P.root, 'docs', 'icon.png');
   if (fs.existsSync(icon)) copyFile(icon, path.join(stage, 'ciancohorror.png'));
-  fs.writeFileSync(path.join(stage, 'instance.cfg'), [
+  const preLaunch = `"$INST_JAVA" -jar packwiz-installer-bootstrap.jar ${packUrl(slug)}`;
+  const cfg = path.join(stage, 'instance.cfg');
+  fs.writeFileSync(cfg, [
     '[General]',
     'ConfigVersion=1.3',
     'InstanceType=OneSix',
-    `name=CiancoHorror`,
+    `name=${iniString('CiancoHorror')}`,
     // docs/icon.png ships as a custom icon; otherwise Prism's built-in Herobrine icon
     `iconKey=${fs.existsSync(icon) ? 'ciancohorror' : PRISM_ICON}`,
     'OverrideCommands=true',
-    `PreLaunchCommand="$INST_JAVA" -jar packwiz-installer-bootstrap.jar ${packUrl(slug)}`,
+    `PreLaunchCommand=${iniString(preLaunch)}`,
     'OverrideMemory=true',
     'MinMemAlloc=2048',
     'MaxMemAlloc=4096',
-    `notes=CiancoHorror ${version} — auto-updates from github.com/${slug} on every launch.`,
+    `notes=${iniString(`CiancoHorror ${version} — auto-updates from github.com/${slug} on every launch.`)}`,
     '',
   ].join('\n'));
+  // Self-check: what Prism will parse must be exactly the command we meant to run.
+  const line = fs.readFileSync(cfg, 'utf8').split('\n').find((l) => l.startsWith('PreLaunchCommand='));
+  const parsed = line && iniUnescape(line.slice('PreLaunchCommand='.length));
+  if (parsed !== preLaunch) die(`onboarding instance.cfg PreLaunchCommand would parse as ${JSON.stringify(parsed)}, expected ${JSON.stringify(preLaunch)}`);
   fs.writeFileSync(path.join(stage, 'mmc-pack.json'), JSON.stringify({
     formatVersion: 1,
     components: [
