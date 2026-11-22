@@ -11,7 +11,8 @@ description: Add (or remove/swap) a mod in the CiancoHorror pack — compatibili
 
 **Add**: from `pack/`: `~/go/bin/packwiz modrinth add --project-id <id> --version-id <vid> -y`
 (or `packwiz modrinth add <slug> -y`). Then:
-- Set `side` in the new `pack/mods/<slug>.pw.toml`: `client` for client-only, otherwise `both` (never `server`).
+- Set `side` in the new `pack/mods/<slug>.pw.toml`: `client` for client-only, otherwise `both`. (`server` is reserved for Server Optimization base mods.)
+- `./ch doctor` checks deps per side: a `client` mod can't be required by a server-side mod.
 - Add `docs/catalog.json` entry `{category, purpose, why}` (+ `requiredBy` for libs). Real decision → line in `docs/decisions.md`.
 - `./ch doctor` clean → `./ch server:local` (if not client-only) → `./ch client:sync` + launch + `./ch logs client`.
 - Configs: after first launch, `./ch client:pull` to capture the mod's generated config if we want to ship tuned values.

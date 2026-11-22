@@ -12,6 +12,9 @@ Read-only first, always:
 
 What deploy does: backup of every file it overwrites/deletes → `build/backups/deploy-*` · stops the server (announces in chat) · deletes manifest files no longer in the pack · uploads new/changed · patches managed keys in `server.properties` (from `server/server.properties`) · writes `/.ciancohorror-manifest.json` · starts · waits for `Done` and prints errors.
 Never touched: world data (except `<level>/datapacks/ciancohorror`), whitelist/ops/bans, unmanaged files, voicechat port/bind/host.
+Server set = pack mods with side `both`/`server` + configs of server-side mods + `server/overrides/**` (wins) + datapack.
+Never print the remote `server.properties` raw (management-server secret, rcon password) — `ch server props` redacts.
+Whitelist is on: before a deploy that enables it, check `whitelist.json` uses offline UUIDs or players get locked out (fix via console `whitelist remove/add`, with the user's OK).
 
 After deploy: `./ch server logs` (mod list should match the server set), ask the user for a test join + voice chat connect.
 Rollback: upload files from the backup dir with `./ch server put`, or `git revert` + redeploy.

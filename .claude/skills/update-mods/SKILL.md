@@ -4,7 +4,7 @@ description: Check for and apply Modrinth mod updates to the CiancoHorror pack s
 ---
 # Update mods
 
-1. `./ch updates` — table of available updates (type: release/beta/alpha; `base` = Optimization mod).
+1. `./ch updates` — table of available updates (type: release/beta/alpha; `base:client` / `base:server` / `base:client+server` = mod shipped by that base pack).
    `--release-only` to ignore betas/alphas. Show the table to the user.
 2. For anything non-trivial, skim the changelog: `curl -s https://api.modrinth.com/v2/version/<id> | jq -r .changelog`
    (version ids via `./ch updates` source or the metafile). Flag breaking changes, new required deps, MC-version tags.
