@@ -8,6 +8,14 @@ export const KEYCHAIN_SERVICE = 'ciancohorror-exaroton';
 export const deployCfg = () => readJSON(path.join(P.server, 'deploy.json'));
 export const STATUS_NAME = { 0: 'offline', 1: 'online', 2: 'starting', 3: 'stopping', 4: 'restarting', 5: 'saving', 6: 'loading', 7: 'crashed', 8: 'pending', 9: 'transferring', 10: 'preparing' };
 
+// exaroton@2 streams file uploads (File.upload) as a web ReadableStream without `duplex: 'half'`,
+// which Node's fetch rejects ("duplex option is required when sending a body"). Patch only its requests.
+const nativeFetch = globalThis.fetch;
+globalThis.fetch = (url, opts) => {
+  if (opts?.body && typeof opts.body.getReader === 'function' && !opts.duplex && String(url).startsWith('https://api.exaroton.com/')) opts = { ...opts, duplex: 'half' };
+  return nativeFetch(url, opts);
+};
+
 let cached;
 export async function getServer() {
   if (cached) return cached;
